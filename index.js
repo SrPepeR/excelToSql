@@ -10,7 +10,7 @@ var autoID;
 var autoIDName;
 var autoIDStarter;
 
-var excelEmpty = true;
+var fileEmpty = true;
 var sql = '';
 
 $('#generateBtn').addEventListener('click', () => generateSql());
@@ -29,13 +29,13 @@ function generateSql() {
 
   displayMessage('Generating SQL...', false);
 
-  readExcelFile((isEmpty, sheetData) => {
+  readDataFile((isEmpty, sheetData) => {
     if (isEmpty) {
       displayMessage('No data found in the selected file', true);
       return;
     }
 
-    generateSqlFromExcelData(sheetData);
+    generateSqlFromExtractedData(sheetData);
 
     manageOutput();
   });
@@ -51,7 +51,7 @@ function getFormData() {
   getAutoIDData();
 }
 
-function readExcelFile(callback) {
+function readDataFile(callback) {
   var reader = new FileReader();
   reader.onload = function (e) {
     var readedData = new Uint8Array(e.target.result);
@@ -71,7 +71,8 @@ function readExcelFile(callback) {
 
   reader.readAsArrayBuffer(selectedFile);
 }
-function generateSqlFromExcelData(sheetData) {
+
+function generateSqlFromExtractedData(sheetData) {
   var columnNames = sheetData[0];
   var columnValues = sheetData.slice(1);
 

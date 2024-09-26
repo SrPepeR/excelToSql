@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>From Excel to SQL util</title>
+  <title>From raw file to SQL util</title>
   <link rel="stylesheet" href="./style.css">
   <script src="https://cdn.jsdelivr.net/npm/xlsx"></script>
   <script type="module" src="./index.js"></script>
   <meta http-equiv="Permissions-Policy" content="clipboard=();">
 </head>
 <body>
-  <h1>From Excel to SQL util</h1>
+  <header>
+    <h1>From raw file to SQL util</h1>
+  </header>
 
   <section id="options">
     <label for="tableName">Table Name
@@ -47,8 +49,8 @@
       </select>
     </label>
 
-    <label for="fileSelector">Select an Excel file
-      <input type="file" name="fileSelector" id="fileSelector" accept=".xlsx">
+    <label for="fileSelector">Select an existing file
+      <input type="file" name="fileSelector" id="fileSelector" accept=".xlsx, .xls, .csv">
     </label>
 
     <button id="generateBtn">Generate!!</button>
