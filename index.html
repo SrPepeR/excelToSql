@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From Excel to SQL util</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx"></script>
+  <script type="module" src="./index.js"></script>
+  <meta http-equiv="Permissions-Policy" content="clipboard=();">
+</head>
+<body>
+  <h1>From Excel to SQL util</h1>
+
+  <section id="options">
+    <label for="tableName">Table Name
+      <input type="text" name="tableName" id="tableName" >
+    </label>
+
+    <label for="sqlOperationType">SQL Operation Type
+      <select name="sqlOperationType" id="sqlOperationType">
+        <option value="insert">Insert</option>
+        <option value="update" disabled>Update</option>
+      </select>
+    </label>
+
+    <label for="rowByRow">Statements per row
+      <input type="checkbox" name="rowByRow" id="rowByRow">
+    </label>
+
+    <label for="autoID">Auto Identifier
+      <input type="checkbox" name="autoID" id="autoID">
+    </label>
+    
+    <label for="autoIDName" id="autoIDNameLbl">Auto Identifier Field Name
+      <input type="text" name="autoIDName" id="autoIDName" value="ID">
+    </label>
+
+    <label for="autoIDStarter" id="autoIDStarterLbl">Auto Identifier Start
+      <input type="number" name="autoIDStarter" id="autoIDStarter" min="0" value="1">
+    </label>
+
+    <label for="sqlOutputFormat">SQL Output Format
+      <select name="sqlOutputFormat" id="sqlOutputFormat">
+        <option value="Plain text">Plain Text</option>
+        <option value="Text file">Text File</option>
+      </select>
+    </label>
+
+    <label for="fileSelector">Select an Excel file
+      <input type="file" name="fileSelector" id="fileSelector" accept=".xlsx">
+    </label>
+
+    <button id="generateBtn">Generate!!</button>
+  </section>
+
+  <section id="result">
+    <button id="copyTextBtn">Copy Text</button>
+    
+    <span id="resultMessage"></span>
+  </section>
+</body>
+</html>
