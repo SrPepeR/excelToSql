@@ -5,6 +5,7 @@ var tableName;
 var sqlOperationType;
 var sqlOutputFormat;
 var selectedFile;
+var isClearTableFirst;
 var isRowByRow;
 var autoID;
 var autoIDName;
@@ -44,6 +45,7 @@ function generateSql() {
 function getFormData() {
   tableName = $('#tableName').value || 'default_table';
   sqlOperationType = $('#sqlOperationType').value;
+  isClearTableFirst = $('#clearTable').checked || false;
   isRowByRow = $('#rowByRow').checked || false;
   sqlOutputFormat = $('#sqlOutputFormat').value;
   selectedFile = $('#fileSelector')?.files.length > 0 ? $('#fileSelector').files[0] : null;
@@ -90,12 +92,20 @@ function generateSqlFromExtractedData(sheetData) {
 }
 
 function generateInsertSql(columnNames, columnValues) {
+  sql = '';
+  
+  if (isClearTableFirst) {
+    sql += '-- CLEAR ALL PREVIOUS DATA\n';
+    sql += `TRUNCATE TABLE ${tableName};\n`;
+  }
+  
   if (autoID) {
     columnNames.unshift(autoIDName);
   }
 
+  sql += '-- INSERTS\n';
+
   if (isRowByRow) {
-    sql = '';
     columnValues.forEach((row, rowIndex) => {
       if (row.length === 0) return;
 
@@ -111,7 +121,7 @@ function generateInsertSql(columnNames, columnValues) {
       sql += rowSql + '\n';
     });
   } else {
-    sql = `INSERT INTO ${tableName} (${columnNames.join(', ')}) VALUES`;
+    sql += `INSERT INTO ${tableName} (${columnNames.join(', ')}) VALUES`;
 
     columnValues.forEach((row, rowIndex) => {
       if (row.length === 0) return;
@@ -137,7 +147,7 @@ function generateUpdateSql(columnNames, columnValues) {
     columnNames.unshift(autoIDName);
   }
 
-  sql = '';
+  sql = '-- UPDATES\n';
   columnValues.forEach((row, rowIndex) => {
     if (row.length === 0) return;
 
